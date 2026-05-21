@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+
+{% block title %}Home - PasMan{% endblock %}
+
+{% block content %}
+<div class="w-full h-screen flex items-center justify-center bg-gradient-to-br from-gray-900 via-purple-900 to-gray-900">
+    <div class="text-center space-y-8 animate-pulse-slow">
+        <!-- Large Logo -->
+        <div class="text-8xl animate-bounce">🟡</div>
+        
+        <!-- Title -->
+        <h1 class="text-6xl font-arcade text-yellow-300 tracking-wider">PAS<span class="text-pink-300">MAN</span></h1>
+        
+        <!-- Subtitle -->
+        <p class="text-2xl text-pink-300 font-arcade">Arcade Password Manager</p>
+        
+        <!-- Description -->
+        <p class="text-base text-gray-300 max-w-2xl mx-auto leading-relaxed">
+            Keep your passwords safe in an arcade-themed vault.<br>
+            🔐 Military-grade AES-256 encryption<br>
+            🎮 Retro Pac-Man aesthetic<br>
+            ⚡ Fast and simple
+        </p>
+        
+        <!-- CTA Buttons -->
+        <div class="flex gap-6 justify-center pt-8">
+            {% if user.is_authenticated %}
+                <a href="{% url 'accounts:verify_master_password' %}" class="px-8 py-4 border-4 border-yellow-300 text-yellow-300 font-arcade text-lg hover:bg-yellow-300 hover:text-gray-900 transition-all transform hover:scale-110 shadow-neon">
+                    ENTER VAULT
+                </a>
+                <a href="{% url 'accounts:logout' %}" class="px-8 py-4 border-4 border-pink-300 text-pink-300 font-arcade text-lg hover:bg-pink-300 hover:text-gray-900 transition-all transform hover:scale-110 shadow-neon">
+                    LOGOUT
+                </a>
+            {% else %}
+                <a href="{% url 'accounts:login' %}" class="px-8 py-4 border-4 border-yellow-300 text-yellow-300 font-arcade text-lg hover:bg-yellow-300 hover:text-gray-900 transition-all transform hover:scale-110 shadow-neon">
+                    LOGIN
+                </a>
+                <a href="{% url 'accounts:register' %}" class="px-8 py-4 border-4 border-pink-300 text-pink-300 font-arcade text-lg hover:bg-pink-300 hover:text-gray-900 transition-all transform hover:scale-110 shadow-neon">
+                    REGISTER
+                </a>
+            {% endif %}
+        </div>
+        
+        <!-- Pac-Man animation -->
+        <div class="pt-12 text-4xl animate-pacman">🟡 ←← ←← ←←</div>
+    </div>
+</div>
+{% endblock %}

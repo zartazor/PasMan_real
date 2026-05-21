@@ -1,0 +1,83 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Vault Dashboard - PasMan{% endblock %}
+
+{% block search_bar %}
+<form method="get" class="flex-1 mx-8 flex gap-2">
+    <input type="text" name="query" value="{{ search_form.query.value|default:'' }}" placeholder="Search..." 
+        class="flex-1 px-3 py-2 rounded-lg border-2 border-yellow-300 bg-gray-800 text-yellow-300 placeholder-gray-500 focus:outline-none">
+    <select name="category" class="px-3 py-2 rounded-lg border-2 border-yellow-300 bg-gray-800 text-yellow-300 focus:outline-none">
+        <option value="">All Categories</option>
+        {% for key, label in categories.items %}
+            <option value="{{ key }}" {% if search_form.category.value == key %}selected{% endif %}>{{ label }}</option>
+        {% endfor %}
+    </select>
+    <button type="submit" class="px-4 py-2 border-2 border-yellow-300 bg-yellow-300 text-gray-900 font-bold rounded-lg hover:bg-yellow-200 transition-colors">Search</button>
+</form>
+{% endblock %}
+
+{% block content %}
+<div class="grid grid-cols-4 gap-6 p-6 min-h-screen">
+    <!-- Sidebar Navigation -->
+    <div class="col-span-1 bg-gray-950 border-4 border-purple-500 rounded-lg p-4 shadow-neon h-fit sticky top-6">
+        <h3 class="text-yellow-300 font-arcade text-lg mb-4 border-b-2 border-purple-500 pb-2">📋 MENU</h3>
+        
+        <nav class="space-y-2">
+            <a href="{% url 'vault:dashboard' %}" class="block px-4 py-2 border-2 border-yellow-300 bg-yellow-300 text-gray-900 rounded font-bold text-sm">Dashboard</a>
+            <a href="{% url 'vault:password_generator' %}" class="block px-4 py-2 border-2 border-pink-300 text-pink-300 rounded hover:bg-pink-300 hover:text-gray-900 transition-colors font-bold text-sm">Password Generator</a>
+            <a href="{% url 'vault:create_credential' %}" class="block px-4 py-2 border-2 border-blue-300 text-blue-300 rounded hover:bg-blue-300 hover:text-gray-900 transition-colors font-bold text-sm">+ New Credential</a>
+            <hr class="border-purple-500 my-4">
+            
+            <div class="text-xs text-gray-500 mb-3">Categories:</div>
+            {% for key, label in categories.items %}
+                <a href="?category={{ key }}" class="block px-4 py-2 border-l-2 border-gray-600 text-gray-400 text-xs hover:text-yellow-300 hover:border-yellow-300">{{ label }}</a>
+            {% endfor %}
+        </nav>
+
+        <!-- Stats Box -->
+        <div class="mt-8 p-4 border-2 border-yellow-300 bg-gray-900 rounded-lg">
+            <div class="text-xs text-gray-500 mb-2">VAULT STATS</div>
+            <div class="text-2xl font-arcade text-yellow-300">{{ total_credentials }}</div>
+            <div class="text-xs text-gray-500">Credentials Stored</div>
+        </div>
+    </div>
+
+    <!-- Main Content Area -->
+    <div class="col-span-3 space-y-6">
+        <!-- Header -->
+        <div class="bg-gradient-to-r from-blue-900 via-purple-900 to-pink-900 border-4 border-yellow-300 p-6 rounded-lg shadow-neon">
+            <h1 class="text-4xl font-arcade text-yellow-300">🟡 YOUR VAULT</h1>
+            <p class="text-sm text-pink-300 mt-2">{{ total_credentials }} credentials secured with AES-256 encryption</p>
+        </div>
+
+        <!-- Credentials List -->
+        {% if credentials %}
+            <div class="grid grid-cols-1 gap-3">
+                {% for credential in credentials %}
+                    <a href="{% url 'vault:credential_detail' credential.pk %}" class="block p-4 border-2 border-gray-600 bg-gray-900 rounded-lg hover:border-yellow-300 hover:bg-gray-800 transition-all transform hover:scale-102">
+                        <div class="flex justify-between items-center">
+                            <div class="flex-1">
+                                <h3 class="font-bold text-yellow-300">{{ credential.website_name }}</h3>
+                                <p class="text-sm text-gray-400">👤 {{ credential.username }}</p>
+                            </div>
+                            <div class="flex items-center gap-3">
+                                <span class="px-2 py-1 text-xs border border-purple-300 text-purple-300 rounded">{{ credential.get_category_display }}</span>
+                                <span class="text-xs text-gray-500">{{ credential.updated_at|date:"M d, Y" }}</span>
+                                <span class="text-lg">→</span>
+                            </div>
+                        </div>
+                    </a>
+                {% endfor %}
+            </div>
+        {% else %}
+            <div class="border-4 border-dashed border-yellow-300 p-12 rounded-lg text-center">
+                <div class="text-6xl mb-4">👻</div>
+                <h2 class="text-2xl font-arcade text-yellow-300 mb-2">No Credentials Found</h2>
+                <p class="text-gray-400 mb-4">Your vault is empty! Start adding credentials to protect them.</p>
+                <a href="{% url 'vault:create_credential' %}" class="inline-block px-6 py-3 border-2 border-yellow-300 text-yellow-300 font-bold hover:bg-yellow-300 hover:text-gray-900 transition-colors">Create First Credential</a>
+            </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
