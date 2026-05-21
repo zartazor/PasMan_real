@@ -363,5 +363,5 @@ For issues, questions, or suggestions:
 
 ---
 
-**Built with ❤️ by the PasMan Team**  
+**Built with ❤️ by Luke**  
 🎮 *Keep your secrets safe in the arcade* 🎮
