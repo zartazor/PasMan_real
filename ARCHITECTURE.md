@@ -1,4 +1,4 @@
-# PasMan - Architecture & Design Guide
+    # PasMan - Architecture & Design Guide
 
 ## 🏗️ System Architecture
 
