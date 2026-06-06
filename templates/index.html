@@ -1,5 +1,4 @@
 {% extends 'base.html' %}
-{% load static %}
 
 {% block title %}Home - PasMan{% endblock %}
 
@@ -7,7 +6,7 @@
 <div class="w-full h-screen flex items-center justify-center bg-gradient-to-br from-gray-900 via-purple-900 to-gray-900">
     <div class="text-center space-y-8 animate-pulse-slow">
         <!-- Large Logo -->
-        <img src="{% static 'img/pasman-logo.png' %}" alt="PasMan logo" class="logo-image w-40 h-40 mx-auto animate-bounce">
+        <div class="text-8xl animate-bounce">🟡</div>
         
         <!-- Title -->
         <h1 class="text-6xl font-arcade text-yellow-300 tracking-wider">PAS<span class="text-pink-300">MAN</span></h1>
@@ -43,10 +42,7 @@
         </div>
         
         <!-- Pac-Man animation -->
-        <div class="pt-12 text-4xl animate-pacman flex items-center gap-3 justify-center">
-            <img src="{% static 'img/pasman-logo.png' %}" alt="PasMan logo" class="logo-image w-10 h-10">
-            <span class="tracking-widest">←← ←← ←←</span>
-        </div>
+        <div class="pt-12 text-4xl animate-pacman">🟡 ←← ←← ←←</div>
     </div>
 </div>
 {% endblock %}
