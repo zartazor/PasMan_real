@@ -4,23 +4,23 @@
 {% block title %}Vault Dashboard - PasMan{% endblock %}
 
 {% block search_bar %}
-<form method="get" class="flex-1 mx-8 flex gap-2">
+<form method="get" class="order-3 w-full md:order-none md:flex-1 md:mx-8 flex gap-2 min-w-0">
     <input type="text" name="query" value="{{ search_form.query.value|default:'' }}" placeholder="Search..." 
-        class="flex-1 px-3 py-2 rounded-lg border-2 border-yellow-300 bg-gray-800 text-yellow-300 placeholder-gray-500 focus:outline-none">
-    <select name="category" class="px-3 py-2 rounded-lg border-2 border-yellow-300 bg-gray-800 text-yellow-300 focus:outline-none">
+        class="min-w-0 flex-1 px-3 py-2 rounded-lg border-2 border-yellow-300 bg-gray-800 text-yellow-300 placeholder-gray-500 focus:outline-none">
+    <select name="category" class="max-w-[42%] sm:max-w-none px-2 sm:px-3 py-2 rounded-lg border-2 border-yellow-300 bg-gray-800 text-yellow-300 focus:outline-none">
         <option value="">All Categories</option>
         {% for key, label in categories.items %}
             <option value="{{ key }}" {% if search_form.category.value == key %}selected{% endif %}>{{ label }}</option>
         {% endfor %}
     </select>
-    <button type="submit" class="px-4 py-2 border-2 border-yellow-300 bg-yellow-300 text-gray-900 font-bold rounded-lg hover:bg-yellow-200 transition-colors">Search</button>
+    <button type="submit" class="px-3 sm:px-4 py-2 border-2 border-yellow-300 bg-yellow-300 text-gray-900 font-bold rounded-lg hover:bg-yellow-200 transition-colors">Search</button>
 </form>
 {% endblock %}
 
 {% block content %}
-<div class="grid grid-cols-4 gap-6 p-6 min-h-screen">
+<div class="grid grid-cols-1 md:grid-cols-4 gap-4 md:gap-6 p-3 sm:p-6 min-h-screen">
     <!-- Sidebar Navigation -->
-    <div class="col-span-1 bg-gray-950 border-4 border-purple-500 rounded-lg p-4 shadow-neon h-fit sticky top-6">
+    <div class="col-span-1 bg-gray-950 border-4 border-purple-500 rounded-lg p-3 sm:p-4 shadow-neon h-fit md:sticky md:top-6">
         <h3 class="text-yellow-300 font-arcade text-lg mb-4 border-b-2 border-purple-500 pb-2">📋 MENU</h3>
         
         <nav class="space-y-2">
@@ -44,10 +44,10 @@
     </div>
 
     <!-- Main Content Area -->
-    <div class="col-span-3 space-y-6">
+    <div class="col-span-1 md:col-span-3 space-y-4 md:space-y-6 min-w-0">
         <!-- Header -->
-        <div class="bg-gradient-to-r from-blue-900 via-purple-900 to-pink-900 border-4 border-yellow-300 p-6 rounded-lg shadow-neon">
-            <h1 class="text-4xl font-arcade text-yellow-300">🟡 YOUR VAULT</h1>
+        <div class="bg-gradient-to-r from-blue-900 via-purple-900 to-pink-900 border-4 border-yellow-300 p-4 sm:p-6 rounded-lg shadow-neon">
+            <h1 class="text-2xl sm:text-4xl font-arcade text-yellow-300">🟡 YOUR VAULT</h1>
             <p class="text-sm text-pink-300 mt-2">{{ total_credentials }} credentials secured with AES-256 encryption</p>
         </div>
 
@@ -71,9 +71,9 @@
                 {% endfor %}
             </div>
         {% else %}
-            <div class="border-4 border-dashed border-yellow-300 p-12 rounded-lg text-center">
-                <div class="text-6xl mb-4">👻</div>
-                <h2 class="text-2xl font-arcade text-yellow-300 mb-2">No Credentials Found</h2>
+            <div class="border-4 border-dashed border-yellow-300 p-6 sm:p-12 rounded-lg text-center">
+                <div class="text-5xl sm:text-6xl mb-4">👻</div>
+                <h2 class="text-xl sm:text-2xl font-arcade text-yellow-300 mb-2">No Credentials Found</h2>
                 <p class="text-gray-400 mb-4">Your vault is empty! Start adding credentials to protect them.</p>
                 <a href="{% url 'vault:create_credential' %}" class="inline-block px-6 py-3 border-2 border-yellow-300 text-yellow-300 font-bold hover:bg-yellow-300 hover:text-gray-900 transition-colors">Create First Credential</a>
             </div>
