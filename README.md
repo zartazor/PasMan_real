@@ -1,4 +1,4 @@
-# 🎮 PasMan - Arcade Password Manager
+# 🎮 PasMan - Arcade Password Manager (Fun Project)
 
 > A retro Pac-Man themed password manager built with Django + PostgreSQL
 
